@@ -75,6 +75,7 @@ export default {
             filterType: '',
             filterDimension: '',
             page: 1,
+            maxPage: null,
             locationsList: [],
             characterList:[],
             currentlocation: {},
@@ -96,13 +97,14 @@ export default {
             try {
                 const response = await axios.get(`https://rickandmortyapi.com/api/location/?page=${this.page}`);
                 this.locationsList = response.data.results;
+                this.maxPage = response.data.info.pages;
             } catch (error) {
                 console.log(error);
             }
         },
         changePage(b) {
             b == true ? this.page++ : this.page--;
-            this.page < 1 ? this.page = 1 : this.page;
+            this.page < 1 || this.page > this.maxPage ? this.page = 1 : this.page;
             this.fillListAll();
         },
         async filterByName() {

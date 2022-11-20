@@ -43,6 +43,7 @@ export default {
         return {
             filter: null,
             page: 1,
+            maxPage: null,
             list: [],
             names: [],
         }
@@ -56,13 +57,14 @@ export default {
             try {
                 const response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${this.page}`);
                 this.list = response.data.results;
+                this.maxPage = response.data.info.pages;
             } catch (error) {
                 console.log(error);
             }
         },
         changePage(b) {
             b == true ? this.page++ : this.page--;
-            this.page < 1 ? this.page = 1 : this.page;
+            this.page < 1 || this.page > this.maxPage ? this.page = 1 : this.page;
             this.fillListAll();
         },
         async filterByName() {
