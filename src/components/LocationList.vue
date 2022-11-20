@@ -1,6 +1,6 @@
 <template>
     <div v-if="!this.showLocation" >
-        <div class="grid grid-cols-3 gap-3 place-content-center">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 place-content-center">
             <div>
                 <p class="text-cyan-200">Filter by name</p>
                 <input type="text"  v-model.trim="filterName" list="names" @keydown.enter="filterByName" />

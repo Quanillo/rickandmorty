@@ -1,7 +1,4 @@
 <template>
-  <div>
-    <h1 class="text-3xl text-center text-cyan-200">Rick and Morty</h1>
-  </div>
   <NavBar  @selectSection="selectSection" />
   <div>
     <div v-if="section=='Characters'">
