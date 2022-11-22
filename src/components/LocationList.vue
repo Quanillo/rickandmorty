@@ -139,12 +139,22 @@ export default {
                 this.showLocation = false;
             }
             else{
-                for(let i=0; i<location.residents.length; i++){
+                let charactersIds = location.residents.reduce((ac, x)=> ac += x.substring(x.lastIndexOf('/') + 1 ) + ',');
+                const response = await axios.get(charactersIds);
+                if(response.data.constructor === Object){
+                    this.characterList.push(response.data);
+                }
+                else{
+                    response.data.map(x=>this.characterList.push(x));   
+                }
+                this.currentLocation = location;
+                this.showLocation = true;
+                /*for(let i=0; i<location.residents.length; i++){
                     const response = await axios.get(location.residents[i]);
                     this.characterList.push(response.data);
                 }
                 this.currentLocation = location;
-                this.showLocation = true;
+                this.showLocation = true;*/
             }
         },
         async locationNames(){ 

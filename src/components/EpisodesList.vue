@@ -113,12 +113,18 @@ export default {
                 this.showEpisode = false;
             }
             else{
-                for(let i=0; i<episode.characters.length; i++){
+                let charactersIds = episode.characters.reduce((ac, x)=> ac += x.substring(x.lastIndexOf('/') + 1 ) + ',');
+                const response = await axios.get(charactersIds);
+                console.log(response.data);
+                response.data.map(x=>this.characterList.push(x));   
+                this.currentEpisode = episode;
+                this.showEpisode = true;
+                /*for(let i=0; i<episode.characters.length; i++){
                     const response = await axios.get(episode.characters[i]);
                     this.characterList.push(response.data);
                 }
                 this.currentEpisode = episode;
-                this.showEpisode = true;
+                this.showEpisode = true;*/
             }
            
         },
